@@ -1,0 +1,23 @@
+<Result>
+<Dataset name='Result 1'>
+ <Row><Result_1>30</Result_1></Row>
+</Dataset>
+<Dataset name='avg'>
+ <Row><avg>5.313333333333333</avg></Row>
+</Dataset>
+<Dataset name='min'>
+ <Row><min>37731</min></Row>
+</Dataset>
+<Dataset name='max'>
+ <Row><max>122391</max></Row>
+</Dataset>
+<Dataset name='first'>
+ <Row><yearsexperience>1.1</yearsexperience><salary>39343</salary></Row>
+</Dataset>
+<Dataset name='sum'>
+ <Row><sum>160127.313333333333333</sum></Row>
+</Dataset>
+<Dataset name='set'>
+ <Row><set><Item>5.313333333333333</Item><Item>37731</Item><Item>122391</Item></set></Row>
+</Dataset>
+</Result>
