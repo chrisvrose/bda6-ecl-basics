@@ -23,7 +23,7 @@
 
 
 \title{ECL: Basic Programming}
-\author{Atreya Bain - 1RV18CS030}
+\author{Atreya Bain - 1RV18CS030\\18CS6C5\\Big Data Analytics using Distributed Systems\\R. V. College of Engineering}
 \begin{document}
 \maketitle{}%
 \tableofcontents
@@ -36,7 +36,7 @@ ECL is a declarative language that can be used to work with huge data projects, 
 
 So, breaking it down, there are two types of ECL Code: Definitions, which define what is to be done (eg. loading up a dataset, sorting through a part of a file, and so on) and actions, which are, well, actions; they define what are the actions that are required. Here's a sample program that is from the ECL Playground (most likely the first thing you will see when you load up the playground):
 
-\lstinputlisting[caption={Comments, Definitions, and Actions},firstline=5]{../source/00-eclStarter.ecl}
+\lstinputlisting[caption={(P0) Comments, Definitions, and Actions},firstline=5]{../source/00-eclStarter.ecl}
 
 The first thing to keep in mind, is that ECL, is \textbf{case-insensitive}. Comments are done in a C/C++ fashion of \lstinline!//! as line-comments and \lstinline!/* */! as block comments. It uses the standard \lstinline!object.property! structure and can be use to nest definitions neatly (Note that it is not an object oriented language).
 
@@ -125,28 +125,104 @@ Scenario: We have a dataset `Salary\_Data.csv', and we want some basic stats on 
 \lstinputlisting[caption={Program 1 - Sanity checks}]{../source/12-meagre-stats.ecl}
 
 \pagebreak
-The output is shown here in XML, but later examples can be shown as table pictures for understanding.
-This XML output gives a nice description and structure to the output.
+The output is shown here in XML, but later examples will be shown as table pictures for understanding.
+This XML output gives a nice description and structure to the output. The result is shown as a set of datasets, which have rows, where values are shown as labelled items.
+
 Some important things to note here, is that ECL arrays, are one-indexed and not zero indexed, like most popular languages. 
 Additionally, the `+' operator can perform set operations as well, which we can talk about more later on.
 \lstinputlisting[caption={Output 1 - Sanity checks},language=xml]{../output/12/output.xml}
 
 
+
 \subsection{Datasets and Records}
 
+\subsubsection{Loading up a dataset and working with it}
 
 
 
 \subsection{Iteration \& Recursion - Fibonacci}
 
+If you have worked with functions, you may realise that functions may not be called from itself in ECL. This puts out the idea of ECL.
+Instead, we can attempt to use \lstinline{LOOP} to apply tranformations to a dataset.
+
+Here's a program for fibonacci numbers:
+\lstinputlisting[caption={(P) Fibonacci}]{../source/43-fibonacci.ecl}
+
+The \lstinline!LOOP! function be used to perform an operator multiple times. Note that in this body, the COUNTER keyword is implicitly available for use.
+
+For each successive iteration of \lstinline{LOOP}, the input dataset is the result set of the previous iteration. Let's take a look at the output of the program below.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\linewidth]{../output/43/op.png}
+    \caption{Output}
+\end{figure}
+
+In fact, we can get the final value out of the set by catching its curvalue of the dataset.
+
 \section{ECL and SQL}
 
-\chapter{}
+\chapter{Using Modules}
+\section{General module usage}
+Modules are a great way to segment your code and split it into separate sections.
+Although the variable 
 \section{Standard library}
 
 \chapter{Pre-Machine Learning}
 \section{Techniques useful for Machine Learning}
-\subsection{Dataset Shuffling}
+\subsection{(P) Dataset Shuffling}
+
+Dataset shuffling is a \textbf{very} important portion of data processing before feeding into machine learning models. This ensures even data distributions and is a good step to perform just before shuffling your dataset (up next).
+
+Now how to shuffle? You can use \textbf{Random()} to obtain random values in an ECL Program. If this gives an idea, that's great!
+
+\lstinputlisting[caption={(P) Shuffle Dataset}]{../source/54-shuffle.ecl}
+
+The output, looks as we would expect. The data has been shuffled. It is important to note that most people don't actually remove the id term, but start using it for an sequential serial id \#. This often goes hand in hand with the fact that HPCC Machine Learning modules expect a first column having a serial \# (Although this can be manually added in with a macro too).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../output/54/default}
+    \caption{Default output}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../output/54/shuffled}
+    \caption{Shuffled output}
+\end{figure}
+
+
 \subsection{Dataset Splitting}
+
+Dataset splitting is again an important step to working with Machine Learning. Usually, a dataset is split into 2/3 sections, and one set is the training set, and the other is the dev/testing set(s). Once a dataset has been randomized, it can be easily split.
+
+\lstinputlisting[caption={(P) Split Dataset}]{../source/55-split.ecl}
+
+Here's what the outputs of the program looks:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\linewidth]{../output/55/counts}
+    \caption{Counts $=>$ $6484+15129=21613$}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../output/55/original}
+    \caption{Original}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../output/55/train}
+    \caption{Train set excerpt (It looks like the original)}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../output/55/test}
+    \caption{Test set excerpt}
+\end{figure}
+
 
 \end{document}
