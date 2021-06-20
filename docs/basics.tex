@@ -229,10 +229,10 @@ Functions, unfortunately, may not be called from itself in ECL. This puts out th
 Instead, we can attempt to use \lstinline{LOOP} to apply tranformations to a dataset.
 
 
-\subsubsection{(P) Fibonacci numbers}
+\subsubsection{(P6) Fibonacci numbers}
 
 Here's a program for fibonacci numbers:
-\lstinputlisting[caption={(P) Fibonacci}]{../source/43-fibonacci.ecl}
+\lstinputlisting[caption={(P6) Fibonacci}]{../source/43-fibonacci.ecl}
 
 The \lstinline!LOOP! function be used to perform an operator multiple times. Note that in this body, the COUNTER keyword is implicitly available for use.
 
@@ -241,7 +241,7 @@ For each successive iteration of \lstinline{LOOP}, the input dataset is the resu
 \begin{figure}[h]
     \centering
     \includegraphics[width=.6\linewidth]{../output/43/op.png}
-    \caption{Output}
+    \caption{(P6) Output}
 \end{figure}
 
 In fact, we can get the final value out of the set by catching its curvalue of the dataset.
@@ -249,6 +249,9 @@ In fact, we can get the final value out of the set by catching its curvalue of t
 \section{ECL and SQL}
 
 Data Analysts may find their needs well expressed in ECL as well. ECL can perform powerful aggregations, filtering, sorting, deduplication and expressive visualizations.
+
+
+
 
 \chapter{Using Modules}
 \section{General module usage}
