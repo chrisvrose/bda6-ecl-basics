@@ -1,4 +1,4 @@
-.vscode
+# .vscode
 # Output files, can just reproduce it
 *.pdf
 ## Core latex/pdflatex auxiliary files:
