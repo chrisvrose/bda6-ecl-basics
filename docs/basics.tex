@@ -18,6 +18,7 @@
     breaklines=true,
     backgroundcolor=\color{lg},
     captionpos=b,
+    basicstyle=\footnotesize\ttfamily
 }
 
 
@@ -27,7 +28,7 @@
 \begin{document}
 \maketitle{}%
 \tableofcontents
-\
+\renewcommand{\arraystretch}{1.25}
 \pagebreak
 
 \chapter{Introduction}
@@ -51,7 +52,7 @@ ECL can actually be considered an optimized graph solver. Digging into ECL Watch
 \begin{figure}[h]
     \centering
     \includegraphics[width=.4\linewidth]{../media/simplegraph}
-    \caption{Graph}
+    \caption{Graph for (P0)}
 \end{figure}
 
 Each node is some activity, and the (computation) graph is solved in the best possibly way in ECL. The fact that the computation can be very well optimized by mentioning "what" to do, rather than "how" to do, presents a lot of speedups and the ability to parallelize the program as much as possible.
@@ -78,7 +79,7 @@ There are 4 datasets of importance to note:
 \begin{enumerate}
     \item heart\_failure.csv - A dataset having 13 attributes of a patient, and whether they have heart disease or not. Refer to the \href{https://www.kaggle.com/ronitf/heart-disease-uci}{kaggle page} for more data. 
     \item house\_prices\_data.csv - A dataset that shows the price of a house, given key attributes about it. Refer to the \href{https://www.kaggle.com/shivachandel/kc-house-data}{user's submission on kaggle} for more data.
-    \item Salary\_Data.csv - Years of Experience vs Salary. Its the smallest dataset, and undoubtedly the simplest
+    \item Salary\_Data.csv - Years of Experience vs Salary. Its the smallest dataset, and undoubtedly the simplest.
     \item Social\_Network\_Ads.csv - Similar to the earlier dataset, but includes some additional attributes.
 \end{enumerate}
 
@@ -86,24 +87,24 @@ The scope expected in the programs given below is `~eclbasics', but the reader i
 
 \chapter{Basics}
 
-\section{Data Types \& Beginner Steps in ECL}
+\section{Data Types}
 
-ECL has a list of basic data types, but more may be created by the developer.
+ECL has a list of basic data types, but more may be derived by the developer.
 Some common datatypes are enumerated below. (Use this for quick reference)
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|}\hline
-Data Type & What it's about \\\hline\hline
-STRING[n] & Packed (or null-terminated) string \\\hline
-UTF8 & Unicode character string \\\hline
-UNICODE[\_locale][n] &  UTF-16 encoded unicode character string \\\hline
-INTEGER[n] & n-byte integer value n can be: 1 - 8 \\\hline
-UNSIGNED[n] & n-byte unsigned integer value \\\hline
-REAL[n] & n-byte IEEE floating point value \\\hline
-DECIMAL\textlangle{}n\textrangle{}[\_y] & Packed decimal value of n total digits \\\hline
-BOOLEAN & Boolean value \\\hline
-SET OF \textlangle{}type\textrangle{} & A set of values\\\hline
-RECORD & Ordered collection of data (Like a tuple)\\\hline
+Data Type & Description \\\hline\hline
+STRING[n] & Packed (or null-terminated) string \\
+UTF8 & Unicode character string \\
+UNICODE[\_locale][n] &  UTF-16 encoded unicode character string \\
+INTEGER[n] & n-byte integer value n can be: 1 - 8 \\
+UNSIGNED[n] & n-byte unsigned integer value \\
+REAL[n] & n-byte IEEE floating point value \\
+DECIMAL\textlangle{}n\textrangle{}[\_y] & Packed decimal value of n total digits \\
+BOOLEAN & Boolean value \\
+SET OF \textlangle{}type\textrangle{} & A set of values\\
+RECORD & Ordered collection of data (Like a tuple)\\
 DATASET & Collection of records* \\\hline
 \end{tabular}
 \caption{Common Data Types}
@@ -111,7 +112,7 @@ DATASET & Collection of records* \\\hline
 
 These data types are used very frequently, and more documentation can be found in the \href{https://hpccsystems.com/training/documentation/learning-ecl}{HPCC Systems Learning ECL} page. Following subsections will start with some programs and how they work.
 
-\subsection[Program 1]{(P1) Reading up a dataset and finding some very simple statistics on it}
+\subsection[Simple Statistics on Datasets]{(P1) Reading up a dataset and finding some very simple statistics on it}
 
 Scenario: We have a dataset `Salary\_Data.csv', and we want some basic stats on it as sanity checks, before we do some actual work on it. Let's get four things about it:
 
@@ -136,14 +137,77 @@ Additionally, the `+' operator can perform set operations as well, which we can 
 
 \subsection{Datasets and Records}
 
-\subsubsection{Loading up a dataset and working with it}
+\subsubsection[Common data operations]{(P2)Loading up a dataset and working with it}
+
+Being able to filter and process data is rather important. This program should illustrate the common operations that can be done in ECL. This, includes horizontal slicing (filtering), vertical slicing (column-based filters), and some very common data transformations such as joins.
+
+
+\lstinputlisting[caption={(P2)Dataset operations}]{../source/26-common.ecl}
+
+
+Result 2 and 'projections' will look similar, and that countofYoung is zero. So that's interesting. Here's the rest of the outputs:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\linewidth]{../output/26/1.png}
+    \caption{Result 1 - Output of a segment}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\linewidth]{../output/26/2.png}
+    \caption{Result 2 - Output, filtering columns}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\linewidth]{../output/26/2.png}
+    \caption{Result 2 - Output, filtering columns (Only age and salary here)}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\linewidth]{../output/26/6withid.png}
+    \caption{Result 6 - Adding ids with transforms}
+\end{figure}
+
+\subsubsection[Filtering \textit{n}\textsuperscript{th} record]{(P3)Filtering by nth record}
+
+Filtering by the nth record is not as unusual as it might look. In ECL, datasets, statements may not may not be order-sensitive, and can be configured as such. This means that the order of the dataset, cannot be ignored, and can be used.
+For a case of \lstinline!n=2!, this problem devolves into picking out every 2nd number, ie. even numbered item.
+
+Let's try the same on \lstinline!Social_Network_Data.csv!, with $n=3$.
+
+
+\lstinputlisting[caption={(P3) Filtering to n-th record}]{../source/27-nth.ecl}
+
+The output looks rather standard, and there are 134 records output (That's output 2, which is not shown here).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\linewidth]{../output/27/1filt_op}
+    \caption{Result 1 - Notice that the ids print only the 3rd record}
+\end{figure}
+
+\subsection{Dedups and Normalize}
+
+
+For data manipulation, data normalization and dedup play a very large role too. \lstinline{DEDUP} in ECL is a bit special in that you can specify the kind of deduplication wanted. As record order can be made significant; DEDUP can perform dedups locally or over the whole dataset.
+The best way to work with \lstinline{DEDUP} is to first sort your data before feeding it to DEDUP. 
+
+The \lstinline{NORMALIZE} function `normalizes' child records out of a recordset where the child records are appended to the end of the parent's data records. The purpose is to take a variable-length flat-file recordset, and split out the child information. For those coming from a Spark or JS background, it can be thought of as the \lstinline{.flatMap()} operation. 
+
+\lstinputlisting[caption={(P4) Deduplications and Normalize}]{../source/27-nth.ecl}
 
 
 
-\subsection{Iteration \& Recursion - Fibonacci}
+\subsection{Iteration \& Recursion}
 
-If you have worked with functions, you may realise that functions may not be called from itself in ECL. This puts out the idea of ECL.
+Functions, unfortunately, may not be called from itself in ECL. This puts out the idea of recursion, in ECL.
 Instead, we can attempt to use \lstinline{LOOP} to apply tranformations to a dataset.
+
+
+\subsubsection{(P) Fibonacci numbers}
 
 Here's a program for fibonacci numbers:
 \lstinputlisting[caption={(P) Fibonacci}]{../source/43-fibonacci.ecl}
@@ -162,21 +226,28 @@ In fact, we can get the final value out of the set by catching its curvalue of t
 
 \section{ECL and SQL}
 
+Data Analysts may find their needs well expressed in ECL as well. ECL can perform powerful aggregations, filtering, sorting, deduplication and expressive visualizations.
+
 \chapter{Using Modules}
 \section{General module usage}
 Modules are a great way to segment your code and split it into separate sections.
-Although the variable 
-\section{Standard library}
+Although the \lstinline!.! operator really is reminiscent of OOPs like programming, it is good to remember that ECL does \textit{follow} OOPs.
+\subsection{Standard library}
+
+\subsection{Visualisations}
+
+The \lstinline!Visualizer! is a module that is used for Visualizations, and 
+
 
 \chapter{Pre-Machine Learning}
 \section{Techniques useful for Machine Learning}
-\subsection{(P) Dataset Shuffling}
+\subsection{(P19) Dataset Shuffling}
 
 Dataset shuffling is a \textbf{very} important portion of data processing before feeding into machine learning models. This ensures even data distributions and is a good step to perform just before shuffling your dataset (up next).
 
-Now how to shuffle? You can use \textbf{Random()} to obtain random values in an ECL Program. If this gives an idea, that's great!
+Now how to shuffle? You can use \lstinline{RANDOM()} to obtain random values in an ECL Program. If this gives an idea, that's great! Adding a field with a value of \lstinline{RANDOM()} and sorting according to it, is a rather effective way to do shuffle a dataset in ECL.
 
-\lstinputlisting[caption={(P) Shuffle Dataset}]{../source/54-shuffle.ecl}
+\lstinputlisting[caption={(P19) Shuffle Dataset}]{../source/54-shuffle.ecl}
 
 The output, looks as we would expect. The data has been shuffled. It is important to note that most people don't actually remove the id term, but start using it for an sequential serial id \#. This often goes hand in hand with the fact that HPCC Machine Learning modules expect a first column having a serial \# (Although this can be manually added in with a macro too).
 
@@ -192,11 +263,11 @@ The output, looks as we would expect. The data has been shuffled. It is importan
 \end{figure}
 
 
-\subsection{Dataset Splitting}
+\subsection{(P20) Dataset Splitting}
 
 Dataset splitting is again an important step to working with Machine Learning. Usually, a dataset is split into 2/3 sections, and one set is the training set, and the other is the dev/testing set(s). Once a dataset has been randomized, it can be easily split.
 
-\lstinputlisting[caption={(P) Split Dataset}]{../source/55-split.ecl}
+\lstinputlisting[caption={(P20) Split Dataset}]{../source/55-split.ecl}
 
 Here's what the outputs of the program looks:
 
