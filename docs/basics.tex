@@ -188,18 +188,40 @@ The output looks rather standard, and there are 134 records output (That's outpu
     \includegraphics[width=.8\linewidth]{../output/27/1filt_op}
     \caption{Result 1 - Notice that the ids print only the 3rd record}
 \end{figure}
+\pagebreak
+\subsection{Deduplication \& Normalization}
 
-\subsection{Dedups and Normalize}
-
+\subsubsection{Deduplication}
 
 For data manipulation, data normalization and dedup play a very large role too. \lstinline{DEDUP} in ECL is a bit special in that you can specify the kind of deduplication wanted. As record order can be made significant; DEDUP can perform dedups locally or over the whole dataset.
-The best way to work with \lstinline{DEDUP} is to first sort your data before feeding it to DEDUP. 
+The best way to work with \lstinline{DEDUP} is to first sort your data before feeding it to DEDUP. Options for KEEP and BEST can be used for more fine-grained control over how the output dataset will be made.
+
+\lstinputlisting[caption={(P4) Dedup}]{../source/29-dedup.ecl}
+
+The output, is shown here in csv, and looks like:
+
+\lstinputlisting[caption={(P4) Deduplication - Output 1}]{../output/29/WUResult.csv}
+\lstinputlisting[caption={(P4) Deduplication - Output 2}]{../output/29/WUResult (1).csv}
+\lstinputlisting[caption={(P4) Deduplication - Output 3}]{../output/29/WUResult (2).csv}
+\lstinputlisting[caption={(P4) Deduplication - Output 4}]{../output/29/WUResult (3).csv}
+
+
+
+\subsection{Normalization}
 
 The \lstinline{NORMALIZE} function `normalizes' child records out of a recordset where the child records are appended to the end of the parent's data records. The purpose is to take a variable-length flat-file recordset, and split out the child information. For those coming from a Spark or JS background, it can be thought of as the \lstinline{.flatMap()} operation. 
 
-\lstinputlisting[caption={(P4) Deduplications and Normalize}]{../source/27-nth.ecl}
+Below is one of the two forms of \lstinline{NORMALIZE}.
 
+\lstinputlisting[caption={(P5) Normalize}]{../source/28-normalize.ecl}
 
+The output record, looks like:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\linewidth]{../output/28/1}
+    \caption{Result 1 - NORMALIZING}
+\end{figure}
 
 \subsection{Iteration \& Recursion}
 
