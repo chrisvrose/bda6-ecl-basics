@@ -126,7 +126,7 @@ Scenario: We have a dataset `Salary\_Data.csv', and we want some basic stats on 
 \lstinputlisting[caption={Program 1 - Sanity checks}]{../source/12-meagre-stats.ecl}
 
 \pagebreak
-The output is shown here in XML, but later examples will be shown as table pictures for understanding.
+The output is shown here in XML, but later examples may be shown as table pictures based on the amount of outputs from the program.
 This XML output gives a nice description and structure to the output. The result is shown as a set of datasets, which have rows, where values are shown as labelled items.
 
 Some important things to note here, is that ECL arrays, are one-indexed and not zero indexed, like most popular languages. 
@@ -246,21 +246,76 @@ For each successive iteration of \lstinline{LOOP}, the input dataset is the resu
 
 In fact, we can get the final value out of the set by catching its curvalue of the dataset.
 
+\subsubsection{(P7) Factorial}
+
+A simpler example for how loop works, is the factorial. \lstinline!LOOP! can be used to get the $n!$.
+Here's a program and a sample output:
+
+\lstinputlisting[caption={(P7) $10!$}]{../source/44-factorial.ecl}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\linewidth]{../output/44/1.png}
+    \caption{(P7) Output 1}
+\end{figure}
+
+
 \section{ECL and SQL}
 
 Data Analysts may find their needs well expressed in ECL as well. ECL can perform powerful aggregations, filtering, sorting, deduplication and expressive visualizations.
 
+% 3 programs
+\subsubsection{Basic SQL comparisons}
+
+ALthough SQL is used mostly in databases, it is a popular choice for data querying and analysis. 
+Some comparisons are given below to guide those who have prior knowledge of SQL and also to help show the differences in how SQL and ECL can be used given similar objectives.
 
 
+\lstinputlisting[caption={(P8) SQL and ECL - Basic querying and aggregtions}]{../source/62-sql1.ecl}
+
+As there are lots of output, the output is shown in xml format.
+
+\lstinputlisting[caption={(P8) Outputs in XML}]{../output/62/outputs.xml}
+
+\subsection{SQL Queries involving grouping and ordering}
+
+In HPCC Systems, the \lstinline{TABLE} query can also be used to help perform more expressive queries. Grouping and column filtering is possible in one statement here.
+
+\lstinputlisting[caption={(P9) SQL and ECL - Grouping and sorting}]{../source/62-sql1.ecl}
+
+The outputs are as shown:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{../output/63/1.png}
+    \caption{(P7) Output 1 - Information about the youngest few people in this dataset}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\linewidth]{../output/63/2}
+    \caption{(P7) Output 2 - A grouped report of age-wise counts of heart disease}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{../output/63/3}
+    \caption{(P7) Output 3 - The age and the resting heart rate, and whether they had a heart disease, ranked by heart rate}
+\end{figure}
+
+\subsubsection{Working with multiple data sources}
+
+% SQL queries are 
 
 \chapter{Using Modules}
 \section{General module usage}
 Modules are a great way to segment your code and split it into separate sections.
 Although the \lstinline!.! operator really is reminiscent of OOPs like programming, it is good to remember that ECL does \textit{follow} OOPs.
+
+% 2
 \subsection{Standard library}
-
+% 3
 \subsection{Visualisations}
-
+% 1
 The \lstinline!Visualizer! is a module that is used for Visualizations, and 
 
 

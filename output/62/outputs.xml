@@ -1,0 +1,14 @@
+
+<Result>
+<Dataset name='cnt'>
+ <Row><cnt>303</cnt></Row>
+</Dataset>
+<Dataset name='limitedTarget'>
+ <Row><age>63</age><sex>1</sex><cp>3</cp><trestbps>145</trestbps><chol>233</chol><fbs>1</fbs><restecg>0</restecg><thalach>150</thalach><exang>0</exang><oldpeak>2.3</oldpeak><slope>0</slope><ca>0</ca><thal>1</thal><target>1</target></Row>
+ <Row><age>37</age><sex>1</sex><cp>2</cp><trestbps>130</trestbps><chol>250</chol><fbs>0</fbs><restecg>1</restecg><thalach>187</thalach><exang>0</exang><oldpeak>3.5</oldpeak><slope>0</slope><ca>0</ca><thal>2</thal><target>1</target></Row>
+ <Row><age>41</age><sex>0</sex><cp>1</cp><trestbps>130</trestbps><chol>204</chol><fbs>0</fbs><restecg>0</restecg><thalach>172</thalach><exang>0</exang><oldpeak>1.4</oldpeak><slope>2</slope><ca>0</ca><thal>2</thal><target>1</target></Row>
+</Dataset>
+<Dataset name='avgage'>
+ <Row><avgage>52.4969696969697</avgage></Row>
+</Dataset>
+</Result>
