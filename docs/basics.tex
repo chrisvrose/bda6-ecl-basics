@@ -288,35 +288,64 @@ The outputs are as shown:
 \begin{figure}[h]
     \centering
     \includegraphics[width=.75\linewidth]{../output/63/1.png}
-    \caption{(P7) Output 1 - Information about the youngest few people in this dataset}
+    \caption{(P9) Output 1 - Information about the youngest few people in this dataset}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.5\linewidth]{../output/63/2}
-    \caption{(P7) Output 2 - A grouped report of age-wise counts of heart disease}
+    \caption{(P9) Output 2 - A grouped report of age-wise counts of heart disease}
 \end{figure}
 \begin{figure}[h]
     \centering
     \includegraphics[width=.75\linewidth]{../output/63/3}
-    \caption{(P7) Output 3 - The age and the resting heart rate, and whether they had a heart disease, ranked by heart rate}
+    \caption{(P9) Output 3 - The age and the resting heart rate, and whether they had a heart disease, ranked by heart rate}
 \end{figure}
 
 \subsubsection{Working with multiple data sources}
 
-% SQL queries are 
+SQL queries often support joins to combine data. ECL has the MERGE, and JOIN operators to help with this. Reconsider one of the earlier examples.
+
+MERGE can be used to combine datasets in an efficient manner, although this requires the dataset to be be sorted prior to usage. 
+\lstinputlisting[caption={(P10) Merging sorted data},firstline=2]{../source/01-graph2.ecl}
+
+If record order is not constrained, the \lstinline{+} operator may be used. 
+However, for constrained based joining of data, JOIN is often used. There are various types of joins, although here only \lstinline{INNER} has been depicted as it is most used. Consider the following example for simple joining.
+
+\lstinputlisting[caption={(P11) Joins}]{../source/64-sql3.ecl}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{../output/63/3}
+    \caption{(P11) Output 1 - Details to bill a person with}
+\end{figure}
+
 
 \chapter{Using Modules}
 \section{General module usage}
 Modules are a great way to segment your code and split it into separate sections.
 Although the \lstinline!.! operator really is reminiscent of OOPs like programming, it is good to remember that ECL does \textit{follow} OOPs.
 
+Consider the following as an example to help explain the various scopes available within a module.
+\lstinputlisting[caption={(P12) ./datsrc/modeg.ecl}]{../source/datasrc/modeg.ecl}
+
+\lstinputlisting[caption={(P12) - Using the module}]{../source/75-modules.ecl}
+
+The output, especially showcases the behavious of default-scoped variables.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.75\linewidth]{../output/75/1}
+    \caption{(P12) Output 1}
+\end{figure}
+
+
+
 % 2
 \subsection{Standard library}
 % 3
 \subsection{Visualisations}
 % 1
-The \lstinline!Visualizer! is a module that is used for Visualizations, and 
+The \lstinline!Visualizer! is a module that is used for Visualizations, and supports a variety of ways to graph data. Some of them are shown here
 
 
 \chapter{Pre-Machine Learning}
