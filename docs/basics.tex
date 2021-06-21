@@ -329,7 +329,7 @@ However, for constrained based joining of data, JOIN is often used. There are va
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.75\linewidth]{../output/63/3}
+    \includegraphics[width=.92\linewidth]{../output/63/3}
     \caption{(P11) Output 1 - Details to bill a person with}
 \end{figure}
 
@@ -344,13 +344,14 @@ Consider the following as an example to help explain the various scopes availabl
 
 \lstinputlisting[caption={(P12) - Using the module}]{../source/75-modules.ecl}
 
-The output, especially showcases the behavious of default-scoped variables.
+The output, especially showcases the behaviour of default-scoped variables.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.75\linewidth]{../output/75/1}
+    \includegraphics[width=.6\linewidth]{../output/75/1}
     \caption{(P12) Output 1}
 \end{figure}
 
+An important point to note is that an ECL program with an export, should not contain actions. This can be understood in the way that export itself is the "output" of the program, ie. the intention of the program is to export these. This also means that although such programs can be syntax checked, modules cannot be directly executed. However, actions may be tied to definitions and be used in a calling program.
 
 
 % 2

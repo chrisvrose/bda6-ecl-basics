@@ -1,5 +1,4 @@
-// importing the data
-import $.datasrc.heart;
+import $.datasrc.heart; // importing the data
 rec:=heart.rec;
 ds:= heart.ds;
 
@@ -16,7 +15,7 @@ OUTPUT(targetedLimited,named('limitedTarget'));
 
 // idea - get the average age for people who have heart disease
 // select avg(age) from heartds where target=1;
-// here we see an interesting part of ECL come into picture, we can reuse definitions
+// here we see a benefit of ECL come into picture, we can reuse definitions
 avgAge := ave(targeted,age);
 output(avgage,named('avgage'));
 
