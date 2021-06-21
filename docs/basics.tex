@@ -358,20 +358,31 @@ An important point to note is that an ECL program with an export, should not con
 
 The Standard library comes with a lot of very useful functionality for data processing.
 
-\subsubsection[String Handling]{(P13)String Handling}
+\subsubsection[String Handling]{String Handling}
 
 A lot of string handling functions are present as part of the Standard library, and may be used. Note that the \lstinline{TRIM} does not require to be imported from the standard library, even though its primary purpose is string processing.
+As a precursor to some other uses, let's consider a case of palindromes, a program that prints out palindromes from a set of words.
 
-The below program recaps some of the earlier concepts on normalize and shows a sample set of data of words, with the objective being to find a set of words which can be used to obtain that 
 
-\lstinputlisting[caption={(P13) - String handling}]{../source/76-std-string.ecl}
+\lstinputlisting[caption={(P12) - String handling}]{../source/76-std-stringsimple.ecl}
 
-Right now, the constant \lstinline{word} is hardcoded, but this can be a parameter to a query and this program would extend into a query that would find the minimum edit distance between the words in the dataset.
+There are 119 palindromes that come out of our set, and here are a few of them:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\linewidth]{../output/76/1}
+    \caption{(P12) Output 1 - Sample of palindromes found}
+\end{figure}
+
+
+The below program recaps some of the earlier concepts on normalize and shows a sample set of data of words, with the objective being to find a set of words which can have some minimal edits to result in the given word.
+
+Right now, the definition \lstinline{word} is hardcoded, but this can be a parameter to a query and this program would extend into a query that would find the minimum edit distance between the words in the dataset.
 The final output for 'ap' looks like:
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.6\linewidth]{../output/76/5}
+    \includegraphics[width=.6\linewidth]{../output/77/5}
     \caption{(P13) Output 5}
 \end{figure}
 
