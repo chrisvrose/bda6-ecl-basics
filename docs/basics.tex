@@ -44,14 +44,14 @@ The first thing to keep in mind, is that ECL, is \textbf{case-insensitive}. Comm
 Execution in ECL, is done by following the trail given by the actions. The execution of an action, requires definitions, which are compiled and executed accordingly. Note that this implies that there \textbf{may not be} an explicit execution order; execution is reordered in a way that helps speed up execution.
 
 Consider the example above, it consists of three definitions, one record, one dataset, and one last definition which is a filter of the previous dataset.
-The final line is an action which creates the execution graph. (Execution graph? Huh?)
+The final line is an action which creates the execution graph. (This is a great segway into the next section.)
 
 \section{Graph Solver}
 
 ECL can actually be considered an optimized graph solver. Digging into ECL Watch, we can obtain this pretty (simple) graph for that previous code sample:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.4\linewidth]{../media/simplegraph}
+    \includegraphics[height=5cm]{../media/simplegraph}
     \caption{Graph for (P0)}
 \end{figure}
 
@@ -67,13 +67,13 @@ Look at this other example, for which the source code is given:
     \caption{Bit less simple graph}
 \end{figure}
 
-The program above, has two outputs (actions). In this case, two graphs are generated and can be executed accordingly. This mindset of "graphs" is rather important to the understanding of ECL, as this will help differentiate it from the traditional imperative style of programming.
+The program above, has two outputs (actions). In this case, two graphs are generated and can be executed accordingly, independently from each other as required. Using this idea, the ECL compiler will compile this ECL code into C++ code that can then be executed on a cluster. This mindset of "graphs" is rather important to the understanding of ECL, as this will help differentiate it from the traditional imperative style of programming.
 
-\section{A rundown of the chapters}
+\section[Chapter information and Datasets]{A rundown of the chapters and datasets used}
 
 The other chapters give examples in ECL, their outputs, and (hopefully) a good understanding of how they work. The last chapter, gives some key methodologies in ECL that is necessary/useful for Machine Learning.
 
-Datasets used have been provided, and can be referred to from the provided repository \url{https://github.com/chrisvrose/bda6-ecl-basics}. Record structures will be given as per the examples.
+Datasets used have been provided, and can be referred to from the provided repository \url{https://github.com/chrisvrose/bda6-ecl-basics}. Record structures will be given as per the examples, but some corresponding records are also provided for reference.
 
 There are 4 datasets of importance to note:
 \begin{enumerate}
@@ -83,7 +83,7 @@ There are 4 datasets of importance to note:
     \item Social\_Network\_Ads.csv - Similar to the earlier dataset, but includes some additional attributes.
 \end{enumerate}
 
-The scope expected in the programs given below is `~eclbasics', but the reader is free to configure them accordingly.
+The scope expected in the programs given below is `\~{}eclbasics', but the reader is free to configure them accordingly.
 
 \chapter{Basics}
 
@@ -145,35 +145,33 @@ Being able to filter and process data is rather important. This program should i
 \lstinputlisting[caption={(P2)Dataset operations}]{../source/26-common.ecl}
 
 
-Result 2 and 'projections' will look similar, and that countofYoung is zero. So that's interesting. Here's the rest of the outputs:
+Result 2 and 'projections' will look similar, and that countofYoung is zero. Its an interesting thought, as both can be used for our goal here, but the latter method using projections allow us to refer it later by assigning it to a definition (You can assign an action to a definition, but that is not the same as this). It should also be noted that the \lstinline{TABLE} function can provide a functionality similar to this too, and its functionality is shown later.
+
+Here's the rest of the outputs:
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.7\linewidth]{../output/26/1.png}
+    \includegraphics[width=\linewidth]{../output/26/1.png}
     \caption{Result 1 - Output of a segment}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.8\linewidth]{../output/26/2.png}
-    \caption{Result 2 - Output, filtering columns}
-\end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.8\linewidth]{../output/26/2.png}
+    \includegraphics[width=\linewidth]{../output/26/2.png}
     \caption{Result 2 - Output, filtering columns (Only age and salary here)}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.8\linewidth]{../output/26/6withid.png}
+    \includegraphics[width=\linewidth]{../output/26/6withid.png}
     \caption{Result 6 - Adding ids with transforms}
 \end{figure}
 
+
 \subsubsection[Filtering \textit{n}\textsuperscript{th} record]{(P3)Filtering by nth record}
 
-Filtering by the nth record is not as unusual as it might look. In ECL, datasets, statements may not may not be order-sensitive, and can be configured as such. This means that the order of the dataset, cannot be ignored, and can be used.
+Filtering by the nth record is not as unusual as it might look. In ECL, datasets, statements may not may not be order-sensitive, and can be configured as such. This means that the order of the dataset, cannot be ignored, and can be used (Unlike 1NF normalized databases where record positions should never matter).
 For a case of \lstinline!n=2!, this problem devolves into picking out every 2nd number, ie. even numbered item.
 
 Let's try the same on \lstinline!Social_Network_Data.csv!, with $n=3$.
@@ -225,13 +223,13 @@ The output record, looks like:
 
 \subsection{Iteration \& Recursion}
 
-Functions, unfortunately, may not be called from itself in ECL. This puts out the idea of recursion, in ECL.
+Functions, unfortunately, may not be called from itself in ECL. This removes the idea of recursion, in ECL.
 Instead, we can attempt to use \lstinline{LOOP} to apply tranformations to a dataset.
 
 
 \subsubsection{(P6) Fibonacci numbers}
 
-Here's a program for fibonacci numbers:
+\noindent{}Fibonacci sequence generation is a classic iteration/recursion program.
 \lstinputlisting[caption={(P6) Fibonacci}]{../source/43-fibonacci.ecl}
 
 The \lstinline!LOOP! function be used to perform an operator multiple times. Note that in this body, the COUNTER keyword is implicitly available for use.
@@ -244,7 +242,7 @@ For each successive iteration of \lstinline{LOOP}, the input dataset is the resu
     \caption{(P6) Output}
 \end{figure}
 
-In fact, we can get the final value out of the set by catching its curvalue of the dataset.
+In fact, we can get the final value out of the set by catching the curvalue of the first element of the dataset.
 
 \subsubsection{(P7) Factorial}
 
@@ -273,9 +271,24 @@ Some comparisons are given below to guide those who have prior knowledge of SQL 
 
 \lstinputlisting[caption={(P8) SQL and ECL - Basic querying and aggregtions}]{../source/62-sql1.ecl}
 
-As there are lots of output, the output is shown in xml format.
+Here's how the output looks like:
 
-\lstinputlisting[caption={(P8) Outputs in XML}]{../output/62/outputs.xml}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.55\linewidth]{../output/62/1.png}
+    \caption{(P8) Output 1 - Number of rows in this dataset}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{../output/62/2}
+    \caption{(P8) Output 2 - 3 enties of people who have heart disease}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.55\linewidth]{../output/62/3}
+    \caption{(P8) Output 3 - The average age of a person who had heart disease}
+\end{figure}
 
 \subsection{SQL Queries involving grouping and ordering}
 

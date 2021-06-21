@@ -22,7 +22,6 @@ d3 := dedup(somefile,value1,all);
 // some other arguments of dedup -> BEST() -> pick which column to pick
 d4 := dedup(somefilesorted,value1,best(value2));
 
-
 // outputs
 d1;
 d2;
