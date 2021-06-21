@@ -351,12 +351,41 @@ The output, especially showcases the behaviour of default-scoped variables.
     \caption{(P12) Output 1}
 \end{figure}
 
-An important point to note is that an ECL program with an export, should not contain actions. This can be understood in the way that export itself is the "output" of the program, ie. the intention of the program is to export these. This also means that although such programs can be syntax checked, modules cannot be directly executed. However, actions may be tied to definitions and be used in a calling program.
+An important point to note is that an ECL program with an export, should not contain actions. This can be understood in the way that export itself is the "output" of the program, ie. the intention of the program is to export these values. This also means that although such programs can be syntax checked, modules cannot be directly executed. However, actions may be tied to definitions and be used in a calling program.
+
+
+\subsection{Standard library}
+
+The Standard library comes with a lot of very useful functionality for data processing.
+
+\subsubsection[String Handling]{(P13)String Handling}
+
+A lot of string handling functions are present as part of the Standard library, and may be used. Note that the \lstinline{TRIM} does not require to be imported from the standard library, even though its primary purpose is string processing.
+
+The below program recaps some of the earlier concepts on normalize and shows a sample set of data of words, with the objective being to find a set of words which can be used to obtain that 
+
+\lstinputlisting[caption={(P13) - String handling}]{../source/76-std-string.ecl}
+
+Right now, the constant \lstinline{word} is hardcoded, but this can be a parameter to a query and this program would extend into a query that would find the minimum edit distance between the words in the dataset.
+The final output for 'ap' looks like:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\linewidth]{../output/76/5}
+    \caption{(P13) Output 5}
+\end{figure}
+
+\subsubsection{Date/Time support}
+
+Date Time support is extremely important for any system. 
+
+\subsubsection{File management}
+
+The Standard library allows for 
+
 
 
 % 2
-\subsection{Standard library}
-% 3
 \subsection{Visualisations}
 % 1
 The \lstinline!Visualizer! is a module that is used for Visualizations, and supports a variety of ways to graph data. Some of them are shown here
