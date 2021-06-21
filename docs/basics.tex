@@ -81,6 +81,7 @@ There are 4 datasets of importance to note:
     \item house\_prices\_data.csv - A dataset that shows the price of a house, given key attributes about it. Refer to the \href{https://www.kaggle.com/shivachandel/kc-house-data}{user's submission on kaggle} for more data.
     \item Salary\_Data.csv - Years of Experience vs Salary. Its the smallest dataset, and undoubtedly the simplest.
     \item Social\_Network\_Ads.csv - Similar to the earlier dataset, but includes some additional attributes.
+    \item vocab.enron.txt - This is a set of words that is used often in machine learning, from the \href{https://archive.ics.uci.edu/ml/datasets/Bag+of+Words}{UCI Machine Learning Repository}
 \end{enumerate}
 
 The scope expected in the programs given below is `\~{}eclbasics', but the reader is free to configure them accordingly.
@@ -139,7 +140,7 @@ Additionally, the `+' operator can perform set operations as well, which we can 
 
 \subsubsection[Common data operations]{(P2)Loading up a dataset and working with it}
 
-Being able to filter and process data is rather important. This program should illustrate the common operations that can be done in ECL. This, includes horizontal slicing (filtering), vertical slicing (column-based filters), and some very common data transformations such as joins.
+Being able to filter and process data is rather important. This program should illustrate the common operations that can be done in ECL. This, includes horizontal slicing (filtering), vertical slicing (column-based filters).
 
 
 \lstinputlisting[caption={(P2)Dataset operations}]{../source/26-common.ecl}
@@ -388,29 +389,39 @@ The final output for 'ap' looks like:
 
 \subsubsection{Date/Time support}
 
-Date Time support is extremely important for any system. 
-
-\subsubsection{File management}
-
-The Standard library allows for 
+Date Time support is extremely important for any language. The standard library provides a multitude of functions to parse, represent and use date and time values.
+Below is a simple example that shows which day of the week today is and what tomorrow is.
 
 
+\lstinputlisting[caption={(P14) - Date handling}]{../source/78-std-date.ecl}
 
-% 2
+The output of this program is short, and shows the current date (note that it is pulled in as UTC).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\linewidth]{../output/78/1}
+    \caption{(P14) Output}
+\end{figure}
+
+
+
+
 \subsection{Visualisations}
-% 1
-The \lstinline!Visualizer! is a module that is used for Visualizations, and supports a variety of ways to graph data. Some of them are shown here
+
+The \lstinline!Visualizer! is a module that is used for Visualizations, and supports a variety of ways to graph data. There are a variety of visualization formats available but the most common ones are shown here.
+
+
 
 
 \chapter{Pre-Machine Learning}
 \section{Techniques useful for Machine Learning}
-\subsection{(P19) Dataset Shuffling}
+\subsection[Dataset Shuffling]{(P16) Dataset Shuffling}
 
 Dataset shuffling is a \textbf{very} important portion of data processing before feeding into machine learning models. This ensures even data distributions and is a good step to perform just before shuffling your dataset (up next).
 
 Now how to shuffle? You can use \lstinline{RANDOM()} to obtain random values in an ECL Program. If this gives an idea, that's great! Adding a field with a value of \lstinline{RANDOM()} and sorting according to it, is a rather effective way to do shuffle a dataset in ECL.
 
-\lstinputlisting[caption={(P19) Shuffle Dataset}]{../source/54-shuffle.ecl}
+\lstinputlisting[caption={(P16) Shuffle Dataset}]{../source/54-shuffle.ecl}
 
 The output, looks as we would expect. The data has been shuffled. It is important to note that most people don't actually remove the id term, but start using it for an sequential serial id \#. This often goes hand in hand with the fact that HPCC Machine Learning modules expect a first column having a serial \# (Although this can be manually added in with a macro too).
 
@@ -426,11 +437,11 @@ The output, looks as we would expect. The data has been shuffled. It is importan
 \end{figure}
 
 
-\subsection{(P20) Dataset Splitting}
+\subsection[Dataset Splitting]{(P17) Dataset Splitting}
 
 Dataset splitting is again an important step to working with Machine Learning. Usually, a dataset is split into 2/3 sections, and one set is the training set, and the other is the dev/testing set(s). Once a dataset has been randomized, it can be easily split.
 
-\lstinputlisting[caption={(P20) Split Dataset}]{../source/55-split.ecl}
+\lstinputlisting[caption={(P17) Split Dataset}]{../source/55-split.ecl}
 
 Here's what the outputs of the program looks:
 
