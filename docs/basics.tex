@@ -888,7 +888,7 @@ END;
 
 newDs := PROJECT(RFClassDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEFT)); 
 
-shuffledDs := SORT(newDs, rnd); // Shuffles by sorting a list of random numbers
+shuffledDs := SORT(newDs, rnd); // Shuffle by sorting a list of random numbers
 
 // Train and Test dataset splitting
 TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(RFClassDs));
