@@ -1,5 +1,3 @@
-import std;
-
 // This is a record
 myDataLayout := RECORD
     DECIMAL5_3 YearsExperience,

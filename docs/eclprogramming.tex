@@ -14,13 +14,21 @@ Execution in ECL, is done by following the trail given by the actions. The execu
 
 Consider the example above, it consists of three definitions, one record, one dataset, and one last definition which is a filter of the previous dataset.
 The final line is an action which creates the execution graph. (This is a great segway into the next section.)
-
+\pagebreak
 \section{Graph Solver}
 
+
+% \begin{wrapfigure}{r}{3.5cm}
+    %     \begin{center}
+        %         \includegraphics[width=3.4cm]{../media/simplegraph.png}
+        %     \end{center}
+        %     \caption{\tiny{Graph for (P0)}}
+        % \end{wrapfigure}
+        
 ECL can actually be considered an optimized graph solver. Digging into ECL Watch, we can obtain this pretty (simple) graph for that previous code sample:
 \begin{figure}[h]
     \centering
-    \includegraphics[height=5cm]{../media/simplegraph}
+    \includegraphics[height=3.5cm]{../media/simplegraph}
     \caption{Graph for (P0)}
 \end{figure}
 
@@ -32,12 +40,13 @@ Look at this other example, for which the source code is given:
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.7\linewidth]{../media/bitlesssimplegraph.png}
+    \includegraphics[width=.6\linewidth]{../media/bitlesssimplegraph.png}
     \caption{Bit less simple graph}
 \end{figure}
 
 The program above, has two outputs (actions). In this case, two graphs are generated and can be executed accordingly, independently from each other as required. Using this idea, the ECL compiler will compile this ECL code into C++ code that can then be executed on a cluster. This mindset of "graphs" is rather important to the understanding of ECL, as this will help differentiate it from the traditional imperative style of programming.
 
+% \pagebreak
 \section[Chapter information and Datasets]{A rundown of the chapters and datasets used}
 
 The other chapters give examples in ECL, their outputs, and (hopefully) a good understanding of how they work. The last chapter, gives some key methodologies in ECL that is necessary/useful for Machine Learning.
@@ -54,6 +63,11 @@ There are 4 datasets of importance to note:
 \end{enumerate}
 
 The scope expected in the programs given below is `\~{}eclbasics', but the reader is free to configure them accordingly.
+
+
+\subsection{Running ECL programs}
+
+The best way to run these, is to first upload and spray the data accordingly, and submit the script using your ECL Client Tools. If using VSCode, an extension is available which uses the Client Tools (On Windows, don't forget to add \lstinline{ecl} to the PATH variable. The target, is left to the reader to pick accordingly (although these have been tested on \lstinline{thor} and \lstinline{hthor}).
 
 \chapter{Basics}
 
@@ -75,12 +89,24 @@ DECIMAL\textlangle{}n\textrangle{}[\_y] & Packed decimal value of n total digits
 BOOLEAN & Boolean value \\
 SET OF \textlangle{}type\textrangle{} & A set of values\\
 RECORD & Ordered collection of data (Like a tuple)\\
-DATASET & Collection of records* \\\hline
+DATASET & Collection of records \\\hline
 \end{tabular}
 \caption{Common Data Types}
 \end{table}
 
 These data types are used very frequently, and more documentation can be found in the \href{https://hpccsystems.com/training/documentation/learning-ecl}{HPCC Systems Learning ECL} page. Following subsections will start with some programs and how they work.
+
+Additionally, in ECL, data types are \textit{inferred} from the assignment if possible. This means that writing
+
+\lstinline{STRING a:= 'Hello';} and 
+
+\lstinline{a:= 'Hello';}
+
+\noindent{}are both giving `a' a type \lstinline{STRING}. 
+
+Other than these basic data types, definitions may also be \lstinline{MODULE}s and \lstinline{FUNCTION}s. These are explored in later sections.
+
+\section{Working with ECL}
 
 \subsection[Simple Statistics on Datasets]{(P1) Reading up a dataset and finding some very simple statistics on it}
 
@@ -153,7 +179,7 @@ The output looks rather standard, and there are 134 records output (That's outpu
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.8\linewidth]{../output/27/1filt_op}
+    \includegraphics[width=.75\linewidth]{../output/27/1filt_op}
     \caption{Result 1 - Notice that the ids print only the 3rd record}
 \end{figure}
 \pagebreak
@@ -175,7 +201,7 @@ The output, is shown here in csv, and looks like:
 
 
 
-\subsection{Normalization}
+\subsubsection{Normalization}
 
 The \lstinline{NORMALIZE} function `normalizes' child records out of a recordset where the child records are appended to the end of the parent's data records. The purpose is to take a variable-length flat-file recordset, and split out the child information. For those coming from a Spark or JS background, it can be thought of as the \lstinline{.flatMap()} operation. 
 
@@ -227,6 +253,10 @@ Here's a program and a sample output:
     \caption{(P7) Output 1}
 \end{figure}
 
+
+\subsection{Denormalization}
+
+Denormalization is the reverse of normalization (thankfully the name suggests that too). Here, a combined record is made out of a \textit{parent} and any number of \textit{children}. Its somewhat like a \lstinline{JOIN}, which will be seen later, but whereas the latter produces n outputs given 1 parent and n children, DENOMRALIZE runs the transformation fucntion and produces only one output. As DENORMALIZE is essentially a specialized form of JOIN, the various join types (LEFT OUTER, RIGHT OUTER, FULL OUTER, LEFT ONLY, RIGHT ONLY, FULL ONLY) are also available for use on DENORMALIZE and act just as they do with JOIN. However, we can work without these specificities for the sake of understanding. Note that such a program also requires a transformation function, like all the various operations that we have seen so far.
 
 \section{ECL and SQL}
 

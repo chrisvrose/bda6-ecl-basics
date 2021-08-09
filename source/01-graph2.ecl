@@ -12,7 +12,6 @@ SomeFile3 := MERGE(SORTED(SomeFile1,letter,number),
 			    SORTED(SomeFile2,letter,number),
                 SORTED(SomeFile4,letter,number));
 
-
 // Outputs
 output(SomeFile3);
 output(SomeFile1 + SomeFile2);
