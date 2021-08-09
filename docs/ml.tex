@@ -125,7 +125,7 @@ ML Core simply abbreviates to "Machine Learning Core", and it defines the requir
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Install ML Core Bundle]{source/ml/mlcore/install.sh}
+\lstinputlisting[caption={Install ML Core Bundle}]{../source/ml/mlcore/install.sh}
 
 This will install the latest stable version of ML Core from the official repository.
 
@@ -135,7 +135,7 @@ Although the bundle is installed, the user still needs to IMPORT the bundle into
 
 An example given below shows the usage of an important macro \textbf{\nameref{mlcore:tofield}}:
 
-\lstinputlisting[caption=ToField Example]{source/ml/mlcore/tofield.ecl}
+\lstinputlisting[caption={ToField Example}]{../source/ml/mlcore/tofield.ecl}
 
 There's a deep documentation file of ML Core that can be accessed on the HPCC website on the following link: \url{https://cdn.hpccsystems.com/pdf/ml/ML\_Core.pdf}. This documentation has the official declaration of parameters, return types and bundle structure. This can be used for reference and importing from ML Core properly. This document goes with a more example-oriented approach to understand the bundles described.
 
@@ -166,7 +166,7 @@ To solve this issue, certain uniform formats for all ML algorithms in ECL are us
 
 Let's look at an example using ML Core to understand better on how to use it.
 
-\lstinputlisting[caption=ToField Example]{source/ml/mlcore/tofield.ecl}
+\lstinputlisting[caption={ToField Example}]{../source/ml/mlcore/tofield.ecl}
 
 An example record is defined above which defines the shape of each record in the dataset. A dataset is created from a sprayed CSV file in a specific format. This dataset is converted to a Numeric Field for ML applications.
 
@@ -192,7 +192,7 @@ It really comes to use to convert the output of regressional models into record-
 
 Let's look at an example of FromField being used
 
-\lstinputlisting[caption=FromField Example]{source/ml/mlcore/fromfield.ecl}
+\lstinputlisting[caption={FromField Example}]{../source/ml/mlcore/fromfield.ecl}
 
 The above example shows how to convert any Numeric Field into a record-oriented dataset given a record. FromField is a macro so exampleDsOut can be used in subsequent lines as it's defined in-line.
 
@@ -204,7 +204,7 @@ The above example shows how to convert any Numeric Field into a record-oriented 
 
 Here's an example of AppendID to show it can be used in ECL
 
-\lstinputlisting[caption=AppendID Example]{source/ml/mlcore/appendid.ecl}
+\lstinputlisting[caption={AppendID Example}]{../source/ml/mlcore/appendid.ecl}
 
 NumericField will had IDs by itself when not mentioned, but it's a good practice to append IDs to the dataset by using the Append ID macros. The second argument mentions what the attribute name of the appended ID will be.
 
@@ -216,7 +216,7 @@ NumericField will had IDs by itself when not mentioned, but it's a good practice
 
 Here's an example of AppendSeqID to show how it can be used in ECL
 
-\lstinputlisting[caption=AppendSeqID Example]{source/ml/mlcore/appendseqid.ecl}
+\lstinputlisting[caption={AppendSeqID Example}]{../source/ml/mlcore/appendseqid.ecl}
 
 NumericField will had IDs by itself when not mentioned, but it's a good practice to append IDs to the dataset by using the Append ID macros. The second argument mentions what the attribute name of the appended ID will be.
 
@@ -232,7 +232,7 @@ NumericField will had IDs by itself when not mentioned, but it's a good practice
     \item \textbf{ByTiling}: Allocate a continuous variable into one of N groups such that each group (tile) contains roughly the same number of entries and that all of the elements of group 2 have a higher value than group 1, etc.
 \end{enumerate}
 
-\lstinputlisting[caption=Discretize Example]{source/ml/mlcore/discretize.ecl}
+\lstinputlisting[caption={Discretize Example}]{../source/ml/mlcore/discretize.ecl}
 
 Discretization is important to generate DiscreteField dataset for Classification problems as classifiers rely on DiscreteField and NumericField are incompatible. It's use is shown in the program given in Classification Analysis Example and all classification models in the following document.
 
@@ -259,7 +259,7 @@ All of these will be implemented in a further example
 
 Given below is an ECL code implementing Classification Forests using Learning Trees. This will show how all the ML Core functions shown above are used with any classification model.
 
-\lstinputlisting[caption=Classification Forests Example]{source/ml/ltrees/classification.ecl}
+\lstinputlisting[caption=Classification Forests Example]{../source/ml/ltrees/classification.ecl}
 
 The above code sums up all of ML Core functionality in a clean classification problem. It should be similar for most classification models in ECL.
 
@@ -279,7 +279,7 @@ This will be implemented in the upcoming example
 
 Given below is an ECL code implementing Regression Forests using Learning Trees. The following code will show how all the functions in ML Core discussed above are used with a regression model.
 
-\lstinputlisting[caption=Regression Forest Example]{source/ml/ltrees/regression.ecl}
+\lstinputlisting[caption=Regression Forest Example]{../source/ml/ltrees/regression.ecl}
 
 The above code sums up all of ML Core functionality in a clean regression problem. It should be similar for most regression models in ECL.
 
@@ -332,7 +332,7 @@ Regression builds a function that maps a set of input data (independents) to one
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Linear Regression Example]{source/ml/linreg/install.sh}
+\lstinputlisting[caption={Install LinearRegression Bundle}]{../source/ml/linreg/install.sh}
 
 This will install the latest stable version of Linear Regression bundle from the official repository.
 
@@ -343,6 +343,8 @@ Linear Regression bundle has a single module inside it by the name of OLS. OLS m
 OLS supports any number of independent variables (Multiple Regression) and multiple dependent variables (Multivariate Regression). In this way, multiple variables’ values can be predicted from the same input (i.e. independent) data.
 
 This module provides a rich set of analytics to assess the usefulness of the resulting linear regression model, and to determine the best subset of independent variables to include in the model. We will look into these below.
+
+\pagebreak
 
 \subsection{Fitting the Model}
 
@@ -356,7 +358,7 @@ The interesting part of OLS module is that OLS itself has a function that takes 
 
 Here is an example of how Linear Regression is used:
 
-\lstinputlisting[caption=Linear Regression Example]{source/ml/linreg/main.ecl}
+\lstinputlisting[caption={Linear Regression Example}]{../source/ml/linreg/main.ecl}
 
 \subsection{Analytics for Linear Regression}
 
@@ -453,7 +455,7 @@ Classification builds a function that maps a set of input data (independents) to
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Install Logistic Regression{source/ml/logreg/install.sh}
+\lstinputlisting[caption={Install Logistic Regression Bundle}]{../source/ml/logreg/install.sh}
 
 This will install the latest stable version of Logistic Regression bundle from the official repository.
 
@@ -478,7 +480,7 @@ Given below are the 3 functions in the module:
 
 Here is an example of how Logistic Regression is used:
 
-\lstinputlisting[caption=Logistic Regression Example]{source/ml/logreg/main.ecl}
+\lstinputlisting[caption={Logistic Regression Example}]{../source/ml/logreg/main.ecl}
 
 \subsection{Analytics for Logistic Regression}
 
@@ -510,7 +512,7 @@ SVMs are capable of both classification and regression. We will be showing how t
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Install SVM Bundle]{source/ml/svm/install.sh}
+\lstinputlisting[caption={Install SVM Bundle}]{../source/ml/svm/install.sh}
 
 This will install the latest stable version of Support Vector Machines bundle from the official repository.
 
@@ -525,6 +527,8 @@ As mentioned, SVMs are capable of both classification and regression. This being
 \end{enumerate}
 
 The ones that we use and are important to us are SVC and SVR. Let's cover them separately as Classification and Regression.
+
+\pagebreak
 
 \subsection{Classification}
 
@@ -544,7 +548,9 @@ The module also supports tuning of the module in order to align the granularity 
 
 Here is an example of how SVC is used:
 
-\lstinputlisting[caption=SVC Example]{source/ml/svm/classification.ecl}
+\lstinputlisting[caption={SVC Example}]{../source/ml/svm/classification.ecl}
+
+\pagebreak
 
 \subsection{Regression}
 
@@ -564,7 +570,7 @@ The module also supports tuning of the module in order to align the granularity 
 
 Here is an example of how SVR is used:
 
-\lstinputlisting[caption=SVR Example]{source/ml/svm/regression.ecl}
+\lstinputlisting[caption={SVR Example}]{../source/ml/svm/regression.ecl}
 
 \chapter{Learning Trees}\label{supe:learntrees}
 
@@ -576,7 +582,7 @@ Random Forests are capable of both classification and regression. Learning Trees
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Install Learning Trees Bundle{source/ml/ltrees/install.sh}
+\lstinputlisting[caption={Install Learning Trees Bundle}]{../source/ml/ltrees/install.sh}
 
 This will install the latest stable version of Learning Trees bundle from the official repository.
 
@@ -622,7 +628,7 @@ These can be checked in the documentation and used, but are out of the scope of 
 
 Here is an example of how Classification trees are used:
 
-\lstinputlisting[caption=Classification Forests Example]{source/ml/ltrees/classification.ecl}
+\lstinputlisting[caption={Classification Forests Example}]{../source/ml/ltrees/classification.ecl}
 
 This was given as an example in ML Core due to Random Forest being a very reliable algorithm for both Classification and Regression without needing any information about the features in the data.
 
@@ -653,7 +659,7 @@ These can be checked in the documentation and used, but are out of the scope of 
 
 Here is an example of how Regression trees are used:
 
-\lstinputlisting[caption=Regression Forests Example]{source/ml/ltrees/regression.ecl}
+\lstinputlisting[caption={Regression Forests Example}]{../source/ml/ltrees/regression.ecl}
 
 This was given as an example in ML Core due to Random Forest being a very reliable algorithm for both Classification and Regression without needing any information about the features in the data.
 
@@ -669,7 +675,7 @@ KMeans bundle contains a module KMeans along with a supporting module Types. KMe
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Install KMeans Bundle]{source/ml/kmeans/install.sh}
+\lstinputlisting[caption=Install KMeans Bundle]{../source/ml/kmeans/install.sh}
 
 This will install the latest stable version of KMeans bundle from the official repository.
 
@@ -689,11 +695,13 @@ KMeans module in the KMeans bundle contains the following functions:
 
 All of the functions can be used depending on use-case and are important to know.
 
+\pagebreak
+
 \paragraph{Example}
 
 Here we provide an example KMeans clustering program which can be used as inspiration to understand how to use:
 
-\lstinputlisting[caption=KMeans Example]{source/ml/kmeans/main.ecl}
+\lstinputlisting[caption={KMeans Example}]{../source/ml/kmeans/main.ecl}
 
 KMeans programs are usually of the same structure. ML Core has useful metrics to analyse clustering models.
 
@@ -709,7 +717,7 @@ DBSCAN bundle contains a DBSCAN module that helps to perform DBSCAN on a dataset
 
 To install this bundle, the user needs to run the following command:
 
-\lstinputlisting[caption=Install DBSCAN bundle]{source/ml/dbscan/install.sh}
+\lstinputlisting[caption={Install DBSCAN bundle}]{../source/ml/dbscan/install.sh}
 
 This will install the latest stable version of DBSCAN bundle from the official repository.
 
@@ -738,6 +746,6 @@ All of the functions can be used depending on use-case and are important to know
 
 Here we provide an example DBSCAN clustering program which can be used as inspiration to understand how to use:
 
-\lstinputlisting[caption=DBSCAN Example]{source/ml/dbscan/main.ecl}
+\lstinputlisting[caption={DBSCAN Example}]{../source/ml/dbscan/main.ecl}
 
 DBSCAN programs are usually of the same structure. ML Core has useful metrics to analyse clustering models.
