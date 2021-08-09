@@ -1,4 +1,3 @@
-
 \part{Prerequisites for Machine Learning in ECL}\label{part:prereqs}
 
 \chapter{Introduction}\label{chap:intro}
@@ -126,9 +125,7 @@ ML Core simply abbreviates to "Machine Learning Core", and it defines the requir
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/ML_Core
-\end{lstlisting}
+\lstinputlisting[caption=Install ML Core Bundle]{source/ml/mlcore/install.sh}
 
 This will install the latest stable version of ML Core from the official repository.
 
@@ -138,22 +135,7 @@ Although the bundle is installed, the user still needs to IMPORT the bundle into
 
 An example given below shows the usage of an important macro \textbf{\nameref{mlcore:tofield}}:
 
-\begin{lstlisting}
-IMPORT ML_Core;
-
-exampleRec := RECORD
-    INTEGER id;
-    REAL value;
-END;
-
-exampleDs := DATASET('~example::example.csv', 
-                    exampleRec, CSV(HEADING(1),
-                    SEPARATOR(','),
-                    TERMINATOR(['\n','\r\n','\n\r'])));
-
-ML_Core.ToField(exampleDs, exampleNF);
-OUTPUT(exampleNF);
-\end{lstlisting}
+\lstinputlisting[caption=ToField Example]{source/ml/mlcore/tofield.ecl}
 
 There's a deep documentation file of ML Core that can be accessed on the HPCC website on the following link: \url{https://cdn.hpccsystems.com/pdf/ml/ML\_Core.pdf}. This documentation has the official declaration of parameters, return types and bundle structure. This can be used for reference and importing from ML Core properly. This document goes with a more example-oriented approach to understand the bundles described.
 
@@ -184,25 +166,7 @@ To solve this issue, certain uniform formats for all ML algorithms in ECL are us
 
 Let's look at an example using ML Core to understand better on how to use it.
 
-\begin{lstlisting}
-IMPORT ML_Core;
-
-exampleRec := RECORD
-    INTEGER id;
-    STRING name;
-    STRING emailid;
-    REAL marks;
-    INTEGER studytime;
-END;
-
-exampleDs := DATASET('~example::example.csv', 
-                    exampleRec, CSV(HEADING(1),
-                    SEPARATOR(','),
-                    TERMINATOR(['\n','\r\n','\n\r'])));
-
-ML_Core.ToField(exampleDs, exampleNF);
-OUTPUT(exampleNF);
-\end{lstlisting}
+\lstinputlisting[caption=ToField Example]{source/ml/mlcore/tofield.ecl}
 
 An example record is defined above which defines the shape of each record in the dataset. A dataset is created from a sprayed CSV file in a specific format. This dataset is converted to a Numeric Field for ML applications.
 
@@ -228,28 +192,7 @@ It really comes to use to convert the output of regressional models into record-
 
 Let's look at an example of FromField being used
 
-\begin{lstlisting}
-IMPORT ML_Core;
-
-exampleRec := RECORD
-    INTEGER id;
-    STRING name;
-    STRING emailid;
-    REAL marks;
-    INTEGER studytime;
-END;
-
-exampleDs := DATASET('~example::example.csv', 
-                    exampleRec, CSV(HEADING(1),
-                    SEPARATOR(','),
-                    TERMINATOR(['\n','\r\n','\n\r'])));
-
-ML_Core.ToField(exampleDs, exampleNF);
-OUTPUT(exampleNF);
-
-ML_Core.FromField(exampleNF, exampleRec, exampleDsOut);
-OUTPUT(exampleDsOut);
-\end{lstlisting}
+\lstinputlisting[caption=FromField Example]{source/ml/mlcore/fromfield.ecl}
 
 The above example shows how to convert any Numeric Field into a record-oriented dataset given a record. FromField is a macro so exampleDsOut can be used in subsequent lines as it's defined in-line.
 
@@ -261,24 +204,7 @@ The above example shows how to convert any Numeric Field into a record-oriented 
 
 Here's an example of AppendID to show it can be used in ECL
 
-\begin{lstlisting}
-IMPORT ML_Core;
-
-exampleRec := RECORD
-    STRING name;
-    STRING emailid;
-    REAL marks;
-    INTEGER studytime;
-END;
-
-exampleDs := DATASET('~example::example.csv', 
-                    exampleRec, CSV(HEADING(1),
-                    SEPARATOR(','),
-                    TERMINATOR(['\n','\r\n','\n\r'])));
-
-ML_Core.AppendID(exampleDs, id, exampleDsID);
-OUTPUT(ML_Core);
-\end{lstlisting}
+\lstinputlisting[caption=AppendID Example]{source/ml/mlcore/appendid.ecl}
 
 NumericField will had IDs by itself when not mentioned, but it's a good practice to append IDs to the dataset by using the Append ID macros. The second argument mentions what the attribute name of the appended ID will be.
 
@@ -290,24 +216,7 @@ NumericField will had IDs by itself when not mentioned, but it's a good practice
 
 Here's an example of AppendSeqID to show how it can be used in ECL
 
-\begin{lstlisting}
-IMPORT ML_Core;
-
-exampleRec := RECORD
-    STRING name;
-    STRING emailid;
-    REAL marks;
-    INTEGER studytime;
-END;
-
-exampleDs := DATASET('~example::example.csv', 
-                    exampleRec, CSV(HEADING(1),
-                    SEPARATOR(','),
-                    TERMINATOR(['\n','\r\n','\n\r'])));
-
-ML_Core.AppendSeqID(exampleDs, id, exampleDsID);
-OUTPUT(ML_Core);
-\end{lstlisting}
+\lstinputlisting[caption=AppendSeqID Example]{source/ml/mlcore/appendseqid.ecl}
 
 NumericField will had IDs by itself when not mentioned, but it's a good practice to append IDs to the dataset by using the Append ID macros. The second argument mentions what the attribute name of the appended ID will be.
 
@@ -323,37 +232,7 @@ NumericField will had IDs by itself when not mentioned, but it's a good practice
     \item \textbf{ByTiling}: Allocate a continuous variable into one of N groups such that each group (tile) contains roughly the same number of entries and that all of the elements of group 2 have a higher value than group 1, etc.
 \end{enumerate}
 
-\begin{lstlisting}
-IMPORT ML_Core;
-
-exampleRec := RECORD
-    INTEGER id;
-    STRING name;
-    STRING emailid;
-    INTEGER age;
-    BOOLEAN bookBought;
-END;
-
-exampleDs := DATASET('~example::example.csv', 
-                    exampleRec, CSV(HEADING(1),
-                    SEPARATOR(','),
-                    TERMINATOR(['\n','\r\n','\n\r'])));
-
-ML_Core.ToField(exampleDs, exampleNF);
-OUTPUT(exampleNF);
-
-// Discretization by Rounding values (1st Method)
-rounded := ML_Core.Discretize.ByRounding(exampleNF);
-OUTPUT(rounded, NAMED('ByRounding'));
-
-// Discretization by Bucketing (2nd Method)
-bucketed := ML_Core.Discretize.ByBucketing(exampleNF);
-OUTPUT(bucketed, NAMED('ByBucketing'));
-
-// Discretization by Tiling (3rd Method)
-tiled := ML_Core.Discretize.ByTiling(exampleNF);
-OUTPUT(tiled, NAMED('ByTiling'));
-\end{lstlisting}
+\lstinputlisting[caption=Discretize Example]{source/ml/mlcore/discretize.ecl}
 
 Discretization is important to generate DiscreteField dataset for Classification problems as classifiers rely on DiscreteField and NumericField are incompatible. It's use is shown in the program given in Classification Analysis Example and all classification models in the following document.
 
@@ -380,81 +259,7 @@ All of these will be implemented in a further example
 
 Given below is an ECL code implementing Classification Forests using Learning Trees. This will show how all the ML Core functions shown above are used with any classification model.
 
-\begin{lstlisting}
-IMPORT ML_Core;
-IMPORT LearningTrees; // We are using Learning Trees here. Shall be covered in a further chapter
-IMPORT $ as root; // Importing current folder to get dataset
-
-RFClassDs := root.Datasets.heartDs.Ds; // This is a dataset that is not relevant to us, it's just an example
-
-// Get count of how many records to split to train and test dataset
-recordCount := COUNT(RFClassDs);
-splitRatio := 0.8;
-
-// Record that is used to shuffle dataset
-Shuffler := RECORD(RECORDOF(RFClassDs))
-  UNSIGNED4 rnd; // A random number
-END;
-
-newDs := PROJECT(RFClassDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEFT)); 
-
-shuffledDs := SORT(newDs, rnd); // Shuffles by sorting a list of random numbers
-
-// Train and Test dataset splitting
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(RFClassDs));
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(RFClassDs));
-
-OUTPUT(TrainDs, NAMED('TrainDataset'));
-OUTPUT(TestDs, NAMED('TestDataset'));
-
-// Appending IDs as the original data does not have it
-ML_Core.AppendSeqID(TrainDs, id, newTrain);
-ML_Core.AppendSeqID(TestDs, id, newTest);
-
-OUTPUT(newTrain, NAMED('TrainDatasetID'));
-OUTPUT(newTest, NAMED('TestDatasetID'));
-
-// Converting data to Numeric Field
-ML_Core.ToField(newTrain, TrainNF);
-ML_Core.ToField(newTest, TestNF);
-
-OUTPUT(TrainNF, NAMED('TrainNumericField'));
-OUTPUT(TestNF, NAMED('TestNumericField'));
-
-// Getting dependent(y) and independent(x) variables separated in both train and test datasets
-independent_cols := 13;
-
-X_train := TrainNF(number < independent_cols + 1);
-y_train := ML_Core.Discretize.ByRounding(PROJECT(TrainNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT)));
-
-X_test := TestNF(number < independent_cols + 1);
-y_test := ML_Core.Discretize.ByRounding(PROJECT(TestNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT)));
-
-OUTPUT(y_test, NAMED('ActualY'));
-
-\\ Check the class stats of testY (1st function)
-stats := ML_Core.Analysis.Classification.ClassStats(y_test);
-OUTPUT(stats, NAMED('ClassStats'));
-
-\\ Learning Trees Classifier model fitting over train set
-classifier := LearningTrees.ClassificationForest().GetModel(X_train, y_train);
-
-\\ Predicting over fitted model with test dataset
-predicted := LearningTrees.ClassificationForest().Classify(classifier, X_test);
-OUTPUT(predicted, NAMED('PredictedY'));
-
-\\ Generate confusion matrix with predicted and actual values (2nd function)
-cm := ML_Core.Analysis.Classification.ConfusionMatrix(predicted, y_test);
-OUTPUT(cm, NAMED('ConfusionMatrix'));
-
-\\ Calculate overall classification accuracy of model (3rd function)
-accuracy_values := ML_Core.Analysis.CLassification.Accuracy(predicted, y_test);
-OUTPUT(accuracy_values, NAMED('AccuracyValues'));
-
-\\ Calculate classification accuracy by class of model (4th function)
-accuracy_by_class := ML_Core.Analysis.Classification.Accuracy(predicted, y_test);
-OUTPUT(accuracy_by_class, NAMED('AccuracyByClass'));
-\end{lstlisting}
+\lstinputlisting[caption=Classification Forests Example]{source/ml/ltrees/classification.ecl}
 
 The above code sums up all of ML Core functionality in a clean classification problem. It should be similar for most classification models in ECL.
 
@@ -474,71 +279,7 @@ This will be implemented in the upcoming example
 
 Given below is an ECL code implementing Regression Forests using Learning Trees. The following code will show how all the functions in ML Core discussed above are used with a regression model.
 
-\begin{lstlisting}
-IMPORT ML_Core;
-IMPORT LearningTrees; // Using Learning Trees regression as example
-IMPORT $ as root; // Importing directory to get dataset
-
-RFRegDs := root.Datasets.houseDs.Ds; // Irrelevant dataset, just as an example
-
-// Counting total number of records to split dataset
-recordCount := COUNT(RFRegDs);
-splitRatio := 0.8;
-
-// Shuffling dataset using shuffler record and sorting
-Shuffler := RECORD(RECORDOF(RFRegDs))
-  UNSIGNED4 rnd; // A random number
-END;
-
-newDs := PROJECT(RFRegDs, TRANSFORM(Shuffler, SELF.rnd := RANDOM(), SELF := LEFT));
-
-// Sorts dataset over random numbers to shuffle
-shuffledDs := SORT(newDs, rnd);
-
-// Split train and test datasets
-TrainDs := PROJECT(shuffledDs[1..(recordCount * splitRatio)], RECORDOF(RFRegDs));
-TestDs := PROJECT(shuffledDs[(recordCount*splitRatio + 1)..recordCount], RECORDOF(RFRegDs));
-
-OUTPUT(TrainDs, NAMED('TrainDataset'));
-OUTPUT(TestDs, NAMED('TestDataset'));
-
-// Append ID to use with NumericField 
-ML_Core.AppendSeqID(TrainDs, id, newTrain);
-ML_Core.AppendSeqID(TestDs, id, newTest);
-
-OUTPUT(newTrain, NAMED('TrainDatasetID'));
-OUTPUT(newTest, NAMED('TestDatasetID'));
-
-// Convert datasets to Numeric Field type
-ML_Core.ToField(newTrain, TrainNF);
-ML_Core.ToField(newTest, TestNF);
-
-OUTPUT(TrainNF, NAMED('TrainNumericField'));
-OUTPUT(TestNF, NAMED('TestNumericField'));
-
-// Seperate dataset into dependent(y) and independent(x) variables
-independent_cols := 12;
-
-X_train := TrainNF(number < independent_cols + 1);
-y_train := PROJECT(TrainNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
-
-X_test := TestNF(number < independent_cols + 1);
-y_test := PROJECT(TestNF(number = independent_cols + 1), TRANSFORM(RECORDOF(LEFT), SELF.number := 1, SELF := LEFT));
-
-OUTPUT(y_test, NAMED('ActualY'));
-
-// Define Regressor model and fit to predict by regression
-regressor := LearningTrees.RegressionForest(numTrees := 10).GetModel(X_train, y_train);
-
-// Get predictions after fitting model
-predicted := LearningTrees.RegressionForest().Predict(regressor, X_test);
-
-OUTPUT(predicted, NAMED('PredictedY'));
-
-// Calculate accuracy of model to analyse model (The method talked about)
-accuracy_values := ML_Core.Analysis.Regression.Accuracy(predicted, y_test);
-OUTPUT(accuracy_values, NAMED('AccuracyValues'));
-\end{lstlisting}
+\lstinputlisting[caption=Regression Forest Example]{source/ml/ltrees/regression.ecl}
 
 The above code sums up all of ML Core functionality in a clean regression problem. It should be similar for most regression models in ECL.
 
@@ -591,9 +332,7 @@ Regression builds a function that maps a set of input data (independents) to one
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/LinearRegression
-\end{lstlisting}
+\lstinputlisting[caption=Linear Regression Example]{source/ml/linreg/install.sh}
 
 This will install the latest stable version of Linear Regression bundle from the official repository.
 
@@ -615,27 +354,9 @@ The interesting part of OLS module is that OLS itself has a function that takes 
 
 \paragraph{Example}
 
-As mentioned in \nameref{regression:example} of Regression in \nameref{mlcore:analysis} subsection of section \nameref{sec:mlcore}, every regression program follows the exact same template for the basic use case. The changes that are needed for Linear Regression are:
+Here is an example of how Linear Regression is used:
 
-\begin{lstlisting}
-// Build the regressor by fitting model on data
-regressor := LinearRegression.OLS(X_train, y_train).GetModel;
-
-// Predict using obtained regressor
-predicted := LinearRegression.OLS().Predict(X_test, regressor);
-\end{lstlisting}
-
-The above syntax is very similar to the above 2 lines in the regression example:
-
-\begin{lstlisting}
-// Define Regressor model and fit to predict by regression
-regressor := LearningTrees.RegressionForest(numTrees := 10).GetModel(X_train, y_train);
-
-// Get predictions after fitting model
-predicted := LearningTrees.RegressionForest().Predict(regressor, X_test);
-\end{lstlisting}
-
-Replacing these 2 lines in the above code should make the Regression code use Linear Regression immediately. This is why, those templates is important to understand the Regression and Classification use cases
+\lstinputlisting[caption=Linear Regression Example]{source/ml/linreg/main.ecl}
 
 \subsection{Analytics for Linear Regression}
 
@@ -732,9 +453,7 @@ Classification builds a function that maps a set of input data (independents) to
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/LogisticRegression
-\end{lstlisting}
+\lstinputlisting[caption=Install Logistic Regression{source/ml/logreg/install.sh}
 
 This will install the latest stable version of Logistic Regression bundle from the official repository.
 
@@ -757,28 +476,9 @@ Given below are the 3 functions in the module:
 
 \paragraph{Example}
 
-As mentioned in \nameref{classification:example} of Classification in \nameref{mlcore:analysis} subsection of section \nameref{sec:mlcore}, every classification program follows the exact same template for the basic use case. The changes that are needed for Logistic Regression are:
+Here is an example of how Logistic Regression is used:
 
-\begin{lstlisting}
-// Define Classifier model and fit to classify by logistic regression
-classifier := LogisticRegression.BinomialLogisticRegression(max_iter := 15000).GetModel(X_train, y_train);
-
-// Get predicted labels after fitting model
-predicted := LogisticRegression.BinomialLogisticRegression().Classify(classifier, X_test);
-\end{lstlisting}
-
-The above syntax is very similar to the below 2 lines in the classification example:
-
-\begin{lstlisting}
-\\ Learning Trees Classifier model fitting over train set
-classifier := LearningTrees.ClassificationForest().GetModel(X_train, y_train);
-
-\\ Predicting over fitted model with test dataset
-predicted := LearningTrees.ClassificationForest().Classify(classifier, X_test);
-OUTPUT(predicted, NAMED('PredictedY'));
-\end{lstlisting}
-
-Replacing these 2 lines in the above code should make the Classification code use Logistic Regression immediately. This is why, those templates is important to understand the Regression and Classification use cases.
+\lstinputlisting[caption=Logistic Regression Example]{source/ml/logreg/main.ecl}
 
 \subsection{Analytics for Logistic Regression}
 
@@ -810,9 +510,7 @@ SVMs are capable of both classification and regression. We will be showing how t
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/SupportVectorMachines
-\end{lstlisting}
+\lstinputlisting[caption=Install SVM Bundle]{source/ml/svm/install.sh}
 
 This will install the latest stable version of Support Vector Machines bundle from the official repository.
 
@@ -844,15 +542,9 @@ The module also supports tuning of the module in order to align the granularity 
 
 \paragraph{Example}
 
-As mentioned in \nameref{classification:example} of Classification in \nameref{mlcore:analysis} subsection of section \nameref{sec:mlcore}, every classification program follows the exact same template for the basic use case. The changes that are needed for Support Vector Classification are:
+Here is an example of how SVC is used:
 
-\begin{lstlisting}
-// Define Classifier model and fit to classify by support vector classification
-classifier := SVM.SVC.GetModel(X_train, y_train);
-
-// Get predicted labels after fitting model
-predicted := SVM.SVC.Classify(classifier, X_test);
-\end{lstlisting}
+\lstinputlisting[caption=SVC Example]{source/ml/svm/classification.ecl}
 
 \subsection{Regression}
 
@@ -870,15 +562,9 @@ The module also supports tuning of the module in order to align the granularity 
 
 \paragraph{Example}
 
-As mentioned in \nameref{regression:example} of Regression in \nameref{mlcore:analysis} subsection of section \nameref{sec:mlcore}, every regression program follows the exact same template for the basic use case. The changes that are needed for Support Vector Regression are:
+Here is an example of how SVR is used:
 
-\begin{lstlisting}
-// Define Classifier model and fit to classify by support vector classification
-regressor := SVM.SVR.GetModel(X_train, y_train);
-
-// Get predicted labels after fitting model
-predicted := SVM.SVR.Predict(X_test, regressor);
-\end{lstlisting}
+\lstinputlisting[caption=SVR Example]{source/ml/svm/regression.ecl}
 
 \chapter{Learning Trees}\label{supe:learntrees}
 
@@ -890,9 +576,7 @@ Random Forests are capable of both classification and regression. Learning Trees
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/LearningTrees
-\end{lstlisting}
+\lstinputlisting[caption=Install Learning Trees Bundle{source/ml/ltrees/install.sh}
 
 This will install the latest stable version of Learning Trees bundle from the official repository.
 
@@ -936,16 +620,9 @@ These can be checked in the documentation and used, but are out of the scope of 
 
 \paragraph{Example}
 
-The \nameref{classification:example} of Classification in \nameref{mlcore:analysis} subsection of section \nameref{sec:mlcore} uses Classification Forest module. The lines to keep of importance are:
+Here is an example of how Classification trees are used:
 
-\begin{lstlisting}
-\\ Learning Trees Classifier model fitting over train set
-classifier := LearningTrees.ClassificationForest().GetModel(X_train, y_train);
-
-\\ Predicting over fitted model with test dataset
-predicted := LearningTrees.ClassificationForest().Classify(classifier, X_test);
-OUTPUT(predicted, NAMED('PredictedY'));
-\end{lstlisting}
+\lstinputlisting[caption=Classification Forests Example]{source/ml/ltrees/classification.ecl}
 
 This was given as an example in ML Core due to Random Forest being a very reliable algorithm for both Classification and Regression without needing any information about the features in the data.
 
@@ -974,15 +651,9 @@ These can be checked in the documentation and used, but are out of the scope of 
 
 \paragraph{Example}
 
-The \nameref{regression:example} of Regression in \nameref{mlcore:analysis} subsection of section \nameref{sec:mlcore} uses Regression Forest module. The lines to keep of importance are:
+Here is an example of how Regression trees are used:
 
-\begin{lstlisting}
-// Define Regressor model and fit to predict by regression
-regressor := LearningTrees.RegressionForest(numTrees := 10).GetModel(X_train, y_train);
-
-// Get predictions after fitting model
-predicted := LearningTrees.RegressionForest().Predict(regressor, X_test);
-\end{lstlisting}
+\lstinputlisting[caption=Regression Forests Example]{source/ml/ltrees/regression.ecl}
 
 This was given as an example in ML Core due to Random Forest being a very reliable algorithm for both Classification and Regression without needing any information about the features in the data.
 
@@ -998,9 +669,7 @@ KMeans bundle contains a module KMeans along with a supporting module Types. KMe
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/KMeans
-\end{lstlisting}
+\lstinputlisting[caption=Install KMeans Bundle]{source/ml/kmeans/install.sh}
 
 This will install the latest stable version of KMeans bundle from the official repository.
 
@@ -1024,45 +693,7 @@ All of the functions can be used depending on use-case and are important to know
 
 Here we provide an example KMeans clustering program which can be used as inspiration to understand how to use:
 
-\begin{lstlisting}
-IMPORT ML_Core;
-IMPORT KMeans;
-IMPORT Visualizer;
-
-//Import raw example data
-KMDs := KMeans.Test.Datasets.DSIris.ds;
-OUTPUT(KMds, NAMED('InputDataset'));
-
-//Hold the raw data in machine learning dataframes such as NumericField
-// Add id to each record
-ML_Core.AppendSeqID(KMDs, id, newKMDs);
-// Transform the records to NumericField dataframe
-ML_Core.ToField(newKMDs, KMNF);
-
-//Initialization
-Centroids := KMNF(id IN [1, 51, 101]);
-
-//Setup model parameters
-Max_iterations := 30;
-Tolerance := 0.00;
-
-//Train K-Means Model
-//Setup the model
-Pre_Model := KMeans.KMeans(Max_iterations, Tolerance);
-//Train the model
-Model := Pre_Model.Fit(KMNF(number < 5), Centroids(number < 5));
-
-//Coordinates of cluster centers
-Centers := KMeans.KMeans().Centers(Model);
-OUTPUT(Centers, NAMED('Centers'));
-
-Labels := KMeans.KMeans().Predict(Model, KMNF);
-OUTPUT(Labels, NAMED('Labels'));
-
-//Analysis
-SSS := ML_Core.Analysis.Clustering.SilhouetteScore(KMNF,Labels);
-OUTPUT(sss,NAMED('Analysis'));
-\end{lstlisting}
+\lstinputlisting[caption=KMeans Example]{source/ml/kmeans/main.ecl}
 
 KMeans programs are usually of the same structure. ML Core has useful metrics to analyse clustering models.
 
@@ -1078,9 +709,7 @@ DBSCAN bundle contains a DBSCAN module that helps to perform DBSCAN on a dataset
 
 To install this bundle, the user needs to run the following command:
 
-\begin{lstlisting}[language=bash]
-$ ecl bundle install https://github.com/hpcc-systems/DBSCAN
-\end{lstlisting}
+\lstinputlisting[caption=Install DBSCAN bundle]{source/ml/dbscan/install.sh}
 
 This will install the latest stable version of DBSCAN bundle from the official repository.
 
@@ -1109,32 +738,6 @@ All of the functions can be used depending on use-case and are important to know
 
 Here we provide an example DBSCAN clustering program which can be used as inspiration to understand how to use:
 
-\begin{lstlisting}
-IMPORT ML_Core;
-IMPORT DBSCAN;
-IMPORT DBSCAN.tests.datasets.frogDS_Small AS frog_data;
-
-//Import raw data
-DBSCANds := frog_data.ds;
-OUTPUT(DBSCANds, NAMED('InputDataset'));
-
-//sequence your data that needs to be sequenced
-ML_Core.AppendSeqID(DBSCANds,id,newDBSCANds);
-// Convert raw data to NumericField format
-ML_Core.ToField(newDBSCANds,DBSCANNF);
-
-//Train DBSCAN model 
-mod := DBSCAN.DBSCAN(0.3,10).Fit(DBSCANNF);
-
-NumberOfClusters := DBSCAN.DBSCAN().Num_Clusters(mod);
-NumberOfOutliers := DBSCAN.DBSCAN().Num_Outliers(mod);
-
-OUTPUT(NumberOfClusters, NAMED('NumberOfClusters'));
-OUTPUT(NumberOfOutliers, NAMED('NumberOfOutliers'));
-
-//Analysis
-SSS := ML_Core.Analysis.Clustering.SilhouetteScore(DBSCANNF,mod);
-OUTPUT(sss,NAMED('Analysis'));
-\end{lstlisting}
+\lstinputlisting[caption=DBSCAN Example]{source/ml/dbscan/main.ecl}
 
 DBSCAN programs are usually of the same structure. ML Core has useful metrics to analyse clustering models.
